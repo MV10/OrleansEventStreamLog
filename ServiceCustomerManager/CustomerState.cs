@@ -5,12 +5,6 @@ namespace ServiceCustomerManager
 {
     public class CustomerState : Customer
     {
-        // The transition methods are assumed to have no side effects other than modifying the state object,
-        // and should be deterministic(otherwise, the effects are unpredictable).
-
-        // uses DLR
-        // https://github.com/dotnet/orleans/blob/master/src/Orleans.EventSourcing/JournaledGrain.cs#L276
-
         public void Apply(Initialized e)
         {
             // Do nothing, this represents the default constructor
@@ -29,9 +23,6 @@ namespace ServiceCustomerManager
 
         public void Apply(CustomerCreated e)
         {
-            // CustomerId is part of this event but is already assigned.
-            // See object creation in CustomerManager ReadStateSnapshot,
-            // the id matches the key that was used to access the grain.
             PrimaryAccountHolder = e.PrimaryAccountHolder;
             MailingAddress = e.MailingAddress;
         }

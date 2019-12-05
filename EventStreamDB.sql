@@ -1,5 +1,4 @@
-﻿
-USE [OrleansESL]
+﻿USE [OrleansESL]
 GO
 
 SET ANSI_NULLS ON
@@ -7,8 +6,6 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
--- https://stackoverflow.com/questions/57867166/avoid-deadlocking-within-a-serializable-isolation-level-transaction
 
 -- No clustered PK, all reads are by specific CustomerId ordered by ETag
 CREATE TABLE [dbo].[CustomerEventStream] (
