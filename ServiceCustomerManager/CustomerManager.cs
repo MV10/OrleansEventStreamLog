@@ -3,8 +3,10 @@ using DomainModel.DomainEvents;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Orleans;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection;
 using System.Threading.Tasks;
 
 /* reset DB for testing:
@@ -133,8 +135,9 @@ namespace ServiceCustomerManager
                     etag = reader.GetInt32(0);
                     var payload = reader.GetString(1);
                     var eventbase = JsonConvert.DeserializeObject(payload, JsonSettings) as DomainEventBase;
-                    Log.LogInformation($"ApplyNewerEvents: applying event for etag {etag}");
-                    state.Apply(eventbase);
+                    Log.LogInformation($"ApplyNewerEvents: applying event {eventbase.GetType()} for etag {etag}");
+                    MethodInfo apply = typeof(CustomerState).GetMethod("Apply", new Type[] { eventbase.GetType() });
+                    apply.Invoke(state, new object[] { eventbase });
                 }
             }
             await reader.CloseAsync();

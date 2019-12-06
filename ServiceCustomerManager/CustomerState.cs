@@ -57,51 +57,5 @@ namespace ServiceCustomerManager
             var acct = Accounts.Find(a => a.AccountNumber.Equals(e.AccountNumber));
             if (acct != null) acct.Balance = e.NewBalance;
         }
-
-        public void Apply(DomainEventBase eb)
-        {
-            switch (eb)
-            {
-                case Initialized e:
-                    Apply(e);
-                    break;
-
-                case AccountAdded e:
-                    Apply(e);
-                    break;
-
-                case AccountRemoved e:
-                    Apply(e);
-                    break;
-
-                case CustomerCreated e:
-                    Apply(e);
-                    break;
-
-                case MailingAddressChanged e:
-                    Apply(e);
-                    break;
-
-                case ResidencePrimaryChanged e:
-                    Apply(e);
-                    break;
-
-                case ResidenceSpouseChanged e:
-                    Apply(e);
-                    break;
-
-                case SpouseChanged e:
-                    Apply(e);
-                    break;
-
-                case SpouseRemoved e:
-                    Apply(e);
-                    break;
-
-                case TransactionPosted e:
-                    Apply(e);
-                    break;
-            }
-        }
     }
 }
